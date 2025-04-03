@@ -1,0 +1,38 @@
+version: 2
+
+snapshots:
+  - name: snapshot_teams
+    relation: ref('staging_teams')
+    description: Snapshot av Teams-tabellen fra teamkatalogen. Den mest sentrale tabellen
+    config:
+      unique_key: id
+      strategy: timestamp
+      updated_at: last_modified_timestamp
+      hard_deletes: invalidate
+
+  - name: snapshot_klynger
+    relation: ref('staging_klynger')
+    description: Snapshot av Klynger-tabellen fra teamkatalogen
+    config:
+      unique_key: id
+      strategy: timestamp
+      updated_at: last_modified_timestamp
+      hard_deletes: invalidate
+
+  - name: snapshot_personer
+    relation: ref('staging_personer')
+    description: Snapshot av Personer-tabellen fra teamkatalogen
+    config:
+      unique_key: id
+      strategy: timestamp
+      updated_at: last_modified_timestamp
+      hard_deletes: invalidate
+
+  - name: snapshot_produktomraader
+    relation: ref('staging_produktomraader')
+    description: Snapshot av Produktomraader-tabellen fra teamkatalogen
+    config:
+      unique_key: id
+      strategy: timestamp
+      updated_at: last_modified_timestamp
+      hard_deletes: invalidate

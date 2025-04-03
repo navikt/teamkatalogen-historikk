@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: teamkatalogen # navnet som brukes i {{ source(<navn>, <tabell>) }}
+    description: Data på BigQuery fra teamkatalogen. Tilrettelagt av Team Org
+    database: org-prod-1016
+    schema: teamkatalogen_federated_query_updated_dataset
+    tables:
+      - name: Teams
+        description: Har alle teammedlemmer nøstet i kolonnen members, hvor også roller ligger. Kan kobles til klynger og områder. Dette er den mest sentrale tabellen
+      - name: Klynger
+        description: Har klynger og folk som er satt på klyngenivå
+      - name: Personer
+        description: Har alle personer i teamkatalogen med tilhørende metadata. Av interesse er vel startdato og intern/ekstern
+      - name: Produktomraader
+        description: Har alle områder og folk på områdenivå, ikke bare produktområder.
