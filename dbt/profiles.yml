@@ -1,0 +1,14 @@
+teamkatalogen_historikk:
+  outputs:
+    service_account:
+      dataset: teamkatalogen_historikk
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      keyfile: secrets/keyfile.json
+      location: europe-north1
+      method: service-account
+      priority: interactive
+      project: pensjon-saksbehandli-prod-1f83
+      threads: 1
+      type: bigquery
+  target: service_account
