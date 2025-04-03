@@ -4,7 +4,7 @@ po as (
     select 
         concat('PO ', substr(name, 15)) as po_navn,
         id as po_id
-    from teamkatalogen_historikk.stg_produktomraader
+    from teamkatalogen_historikk.staging_produktomraader
     where status = 'ACTIVE'
     and areatype = 'PRODUCT_AREA'
 ),
@@ -19,10 +19,10 @@ team_i_po as (
         lower(json_extract_scalar(member, '$.roles[0]')) as rolle,
         lower(json_extract_scalar(member, '$.roles[1]')) as rolle2
     from
-        teamkatalogen_historikk.stg_teams,
-        unnest(json_extract_array(stg_teams.members)) as member
-        inner join po on stg_teams.productareaid = po.po_id
-        where stg_teams.status = 'ACTIVE'
+        teamkatalogen_historikk.staging_teams,
+        unnest(json_extract_array(staging_teams.members)) as member
+        inner join po on staging_teams.productareaid = po.po_id
+        where staging_teams.status = 'ACTIVE'
 ),
 
 -- én rad per person i PO. Velger første rolle, som er litt tilfeldig
