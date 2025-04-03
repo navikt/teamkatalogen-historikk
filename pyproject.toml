@@ -1,0 +1,11 @@
+[project]
+name = "teamkatalogen-historikk"
+version = "0.1.0"
+description = "dbt-prosjekt for å lagre historikk av teamkatalogen"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dbt-bigquery>=1.9.1",
+    "dbt-core>=1.9.4",
+    "google-cloud-secret-manager>=2.23.2",
+]

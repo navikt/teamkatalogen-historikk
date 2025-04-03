@@ -1,0 +1,39 @@
+
+name: 'teamkatalogen_historikk'
+version: '1.0.0'
+profile: 'teamkatalogen_historikk'
+flags:
+  send_anonymous_usage_stats: False  # Stopper datasending til dbt Labs
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+snapshot-paths: ["snapshots"]
+
+
+
+models:
+  teamkatalogen_historikk:
+    +materialized: view # i utgangspunktet views
+    +persist_docs:
+      relation: true
+      columns: true
+    staging:
+      +materialized: view
+      +tags: ['staging']
+      +docs:
+        node_color: '#a3c785'
+    # intermediate:
+    #   +tags: ['intermediate']
+    #   +docs:
+    #     node_color: '#49a8b3'
+    marts:
+      +materialized: table # alle marts blir tables
+      +tags: ['marts']
+      +docs:
+        node_color: '#a176b3'
