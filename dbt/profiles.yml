@@ -1,4 +1,5 @@
 teamkatalogen_historikk:
+  # kjøring med service account, som brukes i Airflow
   target: service_account
   outputs:
     service_account:
@@ -10,12 +11,8 @@ teamkatalogen_historikk:
       dataset: teamkatalogen_historikk
       job_execution_timeout_seconds: 300
       project: pensjon-saksbehandli-prod-1f83
-
-      # method: service-account
-      # keyfile: secrets/keyfile.json
-
       method: service-account-json
-      # # prøver om disse kan leses fra env-var, fordi det er mulig i Airflow
+      # env_var DBT_ENV_SECRET_* settes fra GSM med dbt_run_airflow.py
       keyfile_json:
         type: "{{ env_var('DBT_ENV_SECRET_type') }}"
         project_id: "{{ env_var('DBT_ENV_SECRET_project_id') }}"
@@ -27,3 +24,17 @@ teamkatalogen_historikk:
         token_uri: "{{ env_var('DBT_ENV_SECRET_token_uri') }}"
         auth_provider_x509_cert_url: "{{ env_var('DBT_ENV_SECRET_auth_provider_x509_cert_url') }}"
         client_x509_cert_url: "{{ env_var('DBT_ENV_SECRET_client_x509_cert_url') }}"
+
+  # dette funker hvis keyfile.json er lastet ned (lokalt eller i Airflow)
+      # method: service-account
+      # keyfile: secrets/keyfile.json
+
+  # kjøring med oauth, som brukes lokalt
+  target: oauth
+  outputs:
+    oauth:
+      type: bigquery
+      method: oauth
+      project: pensjon-saksbehandli-prod-1f83
+      dataset: teamkatalogen_historikk
+      threads: 1
