@@ -1,7 +1,8 @@
 teamkatalogen_historikk:
-  # kjøring med service account, som brukes i Airflow
-  target: service_account
+  target: "{{ env_var('DBT_AUTHENTICATION', 'oauth') }}" # default er oauth (lokalt)
   outputs:
+  # kjøring med service account, som brukes i Airflow
+  # DBT_AUTHENTICATION settes til 'service_account' i dbt_run_airflow.py
     service_account:
       threads: 1
       job_retries: 1
@@ -26,12 +27,13 @@ teamkatalogen_historikk:
         client_x509_cert_url: "{{ env_var('DBT_ENV_SECRET_client_x509_cert_url') }}"
 
   # dette funker hvis keyfile.json er lastet ned (lokalt eller i Airflow)
-      # method: service-account
-      # keyfile: secrets/keyfile.json
+    service_account_json_download:
+      method: service-account
+      keyfile: secrets/keyfile.json
+      project: pensjon-saksbehandli-prod-1f83
+      dataset: teamkatalogen_historikk
 
   # kjøring med oauth, som brukes lokalt
-  target: oauth
-  outputs:
     oauth:
       type: bigquery
       method: oauth

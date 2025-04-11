@@ -8,9 +8,10 @@ from dbt.cli.main import dbtRunner, dbtRunnerResult
 logging.basicConfig(level=logging.INFO)
 
 def main():
-
+    """Kjører dbt snapshot for historisere-teamkatalogen"""
     # henter secret for sørvisbrukeren historisere-teamkatalogen
     secret_name = 'serviceuser-bq-historisere-teamkatalogen'
+    logging.info(f"Setter miljøvariabl-hemmeligheter fra: {secret_name}")
     full_secret_name = f"projects/230094999443/secrets/{secret_name}/versions/latest"
     client = secretmanager.SecretManagerServiceClient()
     response = client.access_secret_version(request={"name": full_secret_name})
@@ -19,6 +20,7 @@ def main():
         key = 'DBT_ENV_SECRET_' + key
         os.environ[key] = value
         logging.info(f"Set environment variable {key}")
+    os.environ["DBT_AUTHENTICATION"] = "service_account" # se profiles.yml
 
     # kjører dbt snapshot
     dbt_base_command = ["--log-format-file", "json"]
