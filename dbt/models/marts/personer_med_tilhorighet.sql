@@ -1,7 +1,6 @@
 -- personer_med_tilhorighet
 -- pakker ut members på team og på område, joiner de sammen og legger til personinfo
--- per april 2025 er det 641 dobbelttellinger av personer
--- er typ 75k rader i tabellen
+-- fjerner alle uten omrade_navn, fordi de ikke er interessante her (uten tilhørighet)
 
 with
 
@@ -47,7 +46,7 @@ team_personer as (
         json_value(member, '$.navIdent') as navident,
         lower(json_value(member, '$.roles[0]')) as rolle,
         lower(json_value(member, '$.roles[1]')) as rolle2,
-        'Team' as nivaa
+        'Team' as tilhorighet_niva
     from
         team,
         unnest(json_extract_array(team.team_members)) as member
@@ -64,7 +63,7 @@ omrade_personer as (
         json_value(member, '$.navIdent') as navident,
         lower(json_value(member, '$.roles[0]')) as rolle,
         lower(json_value(member, '$.roles[1]')) as rolle2,
-        'Område' as nivaa
+        'Område' as tilhorighet_niva
     from
         omrade,
         unnest(json_extract_array(omrade.omrade_members)) as member
@@ -79,7 +78,7 @@ union_team_omrade as (
         navident,
         rolle,
         rolle2,
-        nivaa
+        tilhorighet_niva
     from team_personer
     union all
     select
@@ -90,7 +89,7 @@ union_team_omrade as (
         navident,
         rolle,
         rolle2,
-        nivaa
+        tilhorighet_niva
     from omrade_personer
 ),
 
@@ -106,7 +105,7 @@ join_personinfo as (
         union_team_omrade.rolle2,
         union_team_omrade.omrade_type,
         union_team_omrade.po_navn,
-        union_team_omrade.nivaa
+        union_team_omrade.tilhorighet_niva
     from person
     left join union_team_omrade
         on person.navident = union_team_omrade.navident
@@ -126,8 +125,9 @@ final as (
         omrade_navn,
         omrade_type,
         startdato_nav,
-        nivaa
+        tilhorighet_niva
     from join_personinfo
+    where omrade_navn is not null -- fjerner alle utenfor direktoratet
 )
 
 select * from final
