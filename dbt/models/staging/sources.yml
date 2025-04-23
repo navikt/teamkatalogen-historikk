@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: teamkatalogen_historikk
+    description: Data fra eget skjerma (som ikke blir laget her i dbt)
+    database: pensjon-saksbehandli-prod-1f83
+    schema: teamkatalogen_historikk
+    tables:
+      - name: hr_data_utvalg
+        description: Har ident, kjønn, aldersgruppe og ansettelsestype. Ikke åpen tabell.
