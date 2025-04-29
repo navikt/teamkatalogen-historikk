@@ -2,6 +2,8 @@
 -- kombinerer Produktomraader og Teams til en rad per team. team til område er 1:1
 -- klynger ligger i en liste formatert som streng i Teams. team til klynge er 1:mange
 
+{{ config(materialized='view') }}
+
 with
 
 omrade as (
