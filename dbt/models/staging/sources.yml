@@ -8,3 +8,12 @@ sources:
     tables:
       - name: hr_data_utvalg
         description: Har ident, kjønn, aldersgruppe og ansettelsestype. Ikke åpen tabell.
+  - name: datajegerne
+    description: Data fra eget team datajegerne. Info om E-nr og B-nr
+    database: teamdatajegerne-prod-c8b1
+    schema: etterlevelse
+    tables:
+      - name: ds_dokument
+        description: Info om E-nr fra Støtte til etterlevelse
+      - name: ds_besvarelser_tema
+        description: Info om krav og kriterier per E-nr i Støtte til etterlevelse

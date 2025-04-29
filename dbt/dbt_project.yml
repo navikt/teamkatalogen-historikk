@@ -37,3 +37,6 @@ models:
       +tags: ['marts']
       +docs:
         node_color: '#a176b3'
+      etterlevelse:
+        +materialized: view
+        +tags: ['etterlevelse']
