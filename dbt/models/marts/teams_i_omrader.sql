@@ -11,15 +11,7 @@ omrade as (
         id as omrade_id,
         name as omrade_navn,
         status as omrade_status,
-        areatype as omrade_type,
-        case 
-            when areatype = 'PRODUCT_AREA' then concat('PO ', substr(name, 15))
-            else null
-        end as po_navn,
-        case
-            when areatype = 'PRODUCT_AREA' then 1
-            else 0
-        end as po_flagg
+        areatype as omrade_type
     from {{ ref('staging_produktomraader') }}
 ),
 
@@ -41,8 +33,6 @@ sammensmeltet as (
         team.team_type,
         team.omrade_id,
         omrade.omrade_navn,
-        omrade.po_navn,
-        omrade.po_flagg,
         omrade.omrade_status
     from team
     left join omrade
@@ -53,8 +43,6 @@ final as (
     select
         team_navn,
         omrade_navn,
-        po_navn,
-        po_flagg,
         team_type,
         team_status,
         omrade_status,

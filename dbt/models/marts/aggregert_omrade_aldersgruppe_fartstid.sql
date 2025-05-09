@@ -7,7 +7,7 @@ ref_personer as (
     select
         navident,
         date_diff(current_date, startdato_nav, DAY) / 365 as fartstid_nav_ar,
-        coalesce(po_navn, omrade_navn) as omrade_navn
+        omrade_navn
     from {{ ref('personer_med_tilhorighet') }}
     -- from `pensjon-saksbehandli-prod-1f83.teamkatalogen_historikk.personer_med_tilhorighet`
 ),

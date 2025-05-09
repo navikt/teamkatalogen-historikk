@@ -9,10 +9,6 @@ omrade as (
         id as omrade_id,
         name as omrade_navn,
         areatype as omrade_type,
-        case 
-            when areatype = 'PRODUCT_AREA' then concat('PO ', substr(name, 15))
-            else null
-        end as po_navn,
         members as omrade_members -- json
     from {{ ref('staging_produktomraader') }}
     where status = 'ACTIVE'
@@ -49,7 +45,6 @@ team_personer as (
         team.team_navn,
         omrade.omrade_navn,
         omrade.omrade_type,
-        omrade.po_navn,
         json_value(member, '$.navIdent') as navident,
         lower(json_value(member, '$.roles[0]')) as rolle,
         lower(json_value(member, '$.roles[1]')) as rolle2,
@@ -66,7 +61,6 @@ omrade_personer as (
         null as team_navn,
         omrade.omrade_navn,
         omrade.omrade_type,
-        omrade.po_navn,
         json_value(member, '$.navIdent') as navident,
         lower(json_value(member, '$.roles[0]')) as rolle,
         lower(json_value(member, '$.roles[1]')) as rolle2,
@@ -81,7 +75,6 @@ union_team_omrade as (
         team_navn,
         omrade_navn,
         omrade_type,
-        po_navn,
         navident,
         rolle,
         rolle2,
@@ -92,7 +85,6 @@ union_team_omrade as (
         null as team_navn,
         omrade_navn,
         omrade_type,
-        po_navn,
         navident,
         rolle,
         rolle2,
@@ -111,7 +103,6 @@ join_personinfo as (
         (select rollenavn from mapping_rollenavn where rolle_kode = union_team_omrade.rolle) as rolle,
         (select rollenavn from mapping_rollenavn where rolle_kode = union_team_omrade.rolle2) as rolle2,
         union_team_omrade.omrade_type,
-        union_team_omrade.po_navn,
         union_team_omrade.tilhorighet_niva
     from person
     left join union_team_omrade
@@ -126,7 +117,6 @@ final as (
         rolle,
         rolle2,
         ansettelsestype,
-        po_navn,
         omrade_navn,
         omrade_type,
         startdato_nav,

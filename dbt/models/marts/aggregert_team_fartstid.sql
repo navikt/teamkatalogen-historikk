@@ -6,7 +6,7 @@ ref_personer as (
     select
         team_navn,
         startdato_nav,
-        coalesce(po_navn, omrade_navn) as omrade_navn,
+        omrade_navn,
         tilhorighet_niva
     from {{ ref('personer_med_tilhorighet') }}
 ),
