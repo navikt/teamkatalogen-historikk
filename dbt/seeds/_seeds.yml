@@ -1,0 +1,19 @@
+version: 2
+
+# kjør ´dbt seed´, så er tabellen klar til bruk
+# csv-fila er hentet fra repoet til Teamkatalogen
+# https://github.com/navikt/team-catalog/blob/main/apps/frontend/src/util/intl/lang.ts
+
+seeds:
+  - name: seed_teamkatalogen_roller_dimensjon
+    description: >
+      Tabell med norske navn på rollene i teamkatalogen.
+      Hentet fra: https://github.com/navikt/team-catalog/blob/main/apps/frontend/src/util/intl/lang.ts
+    config:
+      delimiter: ','
+    columns:
+      - name: kode
+        description: 'engelsk nøkkel brukt i koden til teamkatalogen, og da også i databasen'
+      - name: rollenavn
+        description: 'Norsk navn på rollen'
+

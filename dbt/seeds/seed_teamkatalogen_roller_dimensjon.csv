@@ -1,0 +1,44 @@
+kode,rollenavn
+agile_coach,Agile coach
+architect,Arkitekt
+area_lead,Områdeleder
+business_analyst,Forretningsutvikler
+communication_adviser,Kommunikasjonsrådgiver
+controller,Controller
+data_engineer,Data engineer
+data_manager,Data manager
+data_scientist,Data scientist
+design_lead,Design lead
+design_researcher,Design researcher
+designer,Designer
+developer,Utvikler
+domain_expert,Domeneekspert
+domain_resource,Fagressurs
+domain_responsible,Fagansvarlig
+functional_adviser,Funksjonell rådgiver
+head_of_legal,Juridisk ansvarlig
+lead,Teamleder
+legal_adviser,Jurist
+maintenance_manager,Vedlikeholdsansvarlig
+operations,Drift
+other,Annet
+platform_system_technician,Platform system technician
+principal,Prinsipal
+product_lead,Produktleder
+profit_coach,Gevinst coach
+security_architect,Sikkerhetsarkitekt
+security_champion,Security champion
+solution_architect,Løsningsarkitekt
+staffing_manager,Bemanningsansvarlig
+subject_matter_expert,Fagekspert
+teamcoach,Teamcoach
+tech_domain_specialist,Teknisk domenespesialist
+tech_lead,Tech lead
+technical_adviser,Teknisk rådgiver
+technical_tester,Teknisk tester
+test_lead,Testleder
+tester,Tester
+uu_champion,UU-Champion
+uu_specialist,UU-spesialist
+visual_analytics_engineer,Visual Analytics Engineer
+web_analyst,Webanalytiker

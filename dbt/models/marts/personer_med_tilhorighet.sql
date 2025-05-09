@@ -37,6 +37,13 @@ person as (
     from {{ ref('staging_personer') }}
 ),
 
+mapping_rollenavn as (
+    select
+        kode as rolle_kode,
+        rollenavn
+    from {{ ref('seed_teamkatalogen_roller_dimensjon') }}
+),
+
 team_personer as (
     select
         team.team_navn,
@@ -101,8 +108,8 @@ join_personinfo as (
         person.ansettelsestype,
         union_team_omrade.omrade_navn,
         union_team_omrade.team_navn,
-        union_team_omrade.rolle,
-        union_team_omrade.rolle2,
+        (select rollenavn from mapping_rollenavn where rolle_kode = union_team_omrade.rolle) as rolle,
+        (select rollenavn from mapping_rollenavn where rolle_kode = union_team_omrade.rolle2) as rolle2,
         union_team_omrade.omrade_type,
         union_team_omrade.po_navn,
         union_team_omrade.tilhorighet_niva
@@ -110,8 +117,6 @@ join_personinfo as (
     left join union_team_omrade
         on person.navident = union_team_omrade.navident
 ),
-
-
 
 final as (
     select
