@@ -16,4 +16,5 @@ seeds:
         description: 'engelsk nøkkel brukt i koden til teamkatalogen, og da også i databasen'
       - name: rollenavn
         description: 'Norsk navn på rollen'
-
+      - name: rolletype
+        description: 'Grov gruppering av roller, gjort manuelt av Brynjar. I utgangspunktet for å telle utviklere og data-folk.'

@@ -1,44 +1,44 @@
-kode,rollenavn
-agile_coach,Agile coach
-architect,Arkitekt
-area_lead,Områdeleder
-business_analyst,Forretningsutvikler
-communication_adviser,Kommunikasjonsrådgiver
-controller,Controller
-data_engineer,Data engineer
-data_manager,Data manager
-data_scientist,Data scientist
-design_lead,Design lead
-design_researcher,Design researcher
-designer,Designer
-developer,Utvikler
-domain_expert,Domeneekspert
-domain_resource,Fagressurs
-domain_responsible,Fagansvarlig
-functional_adviser,Funksjonell rådgiver
-head_of_legal,Juridisk ansvarlig
-lead,Teamleder
-legal_adviser,Jurist
-maintenance_manager,Vedlikeholdsansvarlig
-operations,Drift
-other,Annet
-platform_system_technician,Platform system technician
-principal,Prinsipal
-product_lead,Produktleder
-profit_coach,Gevinst coach
-security_architect,Sikkerhetsarkitekt
-security_champion,Security champion
-solution_architect,Løsningsarkitekt
-staffing_manager,Bemanningsansvarlig
-subject_matter_expert,Fagekspert
-teamcoach,Teamcoach
-tech_domain_specialist,Teknisk domenespesialist
-tech_lead,Tech lead
-technical_adviser,Teknisk rådgiver
-technical_tester,Teknisk tester
-test_lead,Testleder
-tester,Tester
-uu_champion,UU-Champion
-uu_specialist,UU-spesialist
-visual_analytics_engineer,Visual Analytics Engineer
-web_analyst,Webanalytiker
+kode,rollenavn,rolletype
+agile_coach,Agile coach,Annet
+architect,Arkitekt,Annet
+area_lead,Områdeleder,Annet
+business_analyst,Forretningsutvikler,Annet
+communication_adviser,Kommunikasjonsrådgiver,Annet
+controller,Controller,Annet
+data_engineer,Data engineer,Utvikler + data
+data_manager,Data manager,Annet
+data_scientist,Data scientist,Utvikler + data
+design_lead,Design lead,Design
+design_researcher,Design researcher,Design
+designer,Designer,Design
+developer,Utvikler,Utvikler + data
+domain_expert,Domeneekspert,Faglig
+domain_resource,Fagressurs,Faglig
+domain_responsible,Fagansvarlig,Faglig
+functional_adviser,Funksjonell rådgiver,Faglig
+head_of_legal,Juridisk ansvarlig,Annet
+lead,Teamleder,Annet
+legal_adviser,Jurist,Annet
+maintenance_manager,Vedlikeholdsansvarlig,Annet
+operations,Drift,Annet
+other,Annet,Annet
+platform_system_technician,Platform system technician,Annet
+principal,Prinsipal,Annet
+product_lead,Produktleder,Annet
+profit_coach,Gevinst coach,Annet
+security_architect,Sikkerhetsarkitekt,Annet
+security_champion,Security champion,Utvikler + data
+solution_architect,Løsningsarkitekt,Annet
+staffing_manager,Bemanningsansvarlig,Annet
+subject_matter_expert,Fagekspert,Faglig
+teamcoach,Teamcoach,Annet
+tech_domain_specialist,Teknisk domenespesialist,Annet
+tech_lead,Tech lead,Utvikler + data
+technical_adviser,Teknisk rådgiver,Annet
+technical_tester,Teknisk tester,Annet
+test_lead,Testleder,Annet
+tester,Tester,Annet
+uu_champion,UU-Champion,Annet
+uu_specialist,UU-spesialist,Annet
+visual_analytics_engineer,Visual Analytics Engineer,Annet
+web_analyst,Webanalytiker,Annet
