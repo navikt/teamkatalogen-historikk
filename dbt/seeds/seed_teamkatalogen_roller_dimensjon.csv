@@ -1,7 +1,7 @@
 kode,rollenavn,rolletype
 agile_coach,Agile coach,Annet
 architect,Arkitekt,Annet
-area_lead,Områdeleder,Annet
+area_lead,Områdeleder,Leder
 business_analyst,Forretningsutvikler,Annet
 communication_adviser,Kommunikasjonsrådgiver,Annet
 controller,Controller,Annet
@@ -17,14 +17,14 @@ domain_resource,Fagressurs,Faglig
 domain_responsible,Fagansvarlig,Faglig
 functional_adviser,Funksjonell rådgiver,Faglig
 head_of_legal,Juridisk ansvarlig,Annet
-lead,Teamleder,Annet
+lead,Teamleder,Leder
 legal_adviser,Jurist,Annet
 maintenance_manager,Vedlikeholdsansvarlig,Annet
 operations,Drift,Annet
 other,Annet,Annet
 platform_system_technician,Platform system technician,Annet
 principal,Prinsipal,Annet
-product_lead,Produktleder,Annet
+product_lead,Produktleder,Leder
 profit_coach,Gevinst coach,Annet
 security_architect,Sikkerhetsarkitekt,Annet
 security_champion,Security champion,Utvikler + data
