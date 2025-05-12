@@ -36,7 +36,8 @@ person as (
 mapping_rollenavn as (
     select
         kode as rolle_kode,
-        rollenavn
+        rollenavn,
+        rolletype
     from {{ ref('seed_teamkatalogen_roller_dimensjon') }}
 ),
 
@@ -102,6 +103,8 @@ join_personinfo as (
         union_team_omrade.team_navn,
         (select rollenavn from mapping_rollenavn where rolle_kode = union_team_omrade.rolle) as rolle,
         (select rollenavn from mapping_rollenavn where rolle_kode = union_team_omrade.rolle2) as rolle2,
+        (select rolletype from mapping_rollenavn where rolle_kode = union_team_omrade.rolle) as rolletype,
+        (select rolletype from mapping_rollenavn where rolle_kode = union_team_omrade.rolle2) as rolletype2,
         union_team_omrade.omrade_type,
         union_team_omrade.tilhorighet_niva
     from person
@@ -116,6 +119,8 @@ final as (
         team_navn,
         rolle,
         rolle2,
+        rolletype,
+        rolletype2,
         ansettelsestype,
         omrade_navn,
         omrade_type,
