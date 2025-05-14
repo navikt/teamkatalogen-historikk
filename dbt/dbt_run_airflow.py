@@ -7,7 +7,7 @@ from dbt.cli.main import dbtRunner, dbtRunnerResult
 
 logging.basicConfig(level=logging.INFO)
 
-def main():
+def run_dbt(dbt_command: str):
     """Kjører dbt snapshot for historisere-teamkatalogen"""
     # henter secret for sørvisbrukeren historisere-teamkatalogen
     secret_name = 'serviceuser-bq-historisere-teamkatalogen'
@@ -24,7 +24,7 @@ def main():
 
     # kjører dbt snapshot
     dbt_base_command = ["--log-format-file", "json"]
-    dbt_command = ["snapshot"]
+    
     dbt = dbtRunner()
     output: dbtRunnerResult = dbt.invoke(dbt_base_command + dbt_command)
 
@@ -38,4 +38,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    run_dbt(dbt_command=["snapshot"])
+    run_dbt(dbt_command=["run"])
