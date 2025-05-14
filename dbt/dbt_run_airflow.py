@@ -39,4 +39,4 @@ def run_dbt(dbt_command: str):
 
 if __name__ == "__main__":
     run_dbt(dbt_command=["snapshot"])
-    run_dbt(dbt_command=["run"])
+    run_dbt(dbt_command=["run", "--exclude", "tag:etterlevelse"])
