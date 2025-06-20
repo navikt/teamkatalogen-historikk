@@ -9,20 +9,20 @@ teams_i_omrader as (
         omrade_navn,
         team_id,
         omrade_id
-    from {{ ref('teams_i_omrader') }}
-    -- from `pensjon-saksbehandli-prod-1f83.teamkatalogen_historikk.teams_i_omrader`
+    -- from {{ ref('teams_i_omrader') }}
+    from `pensjon-saksbehandli-prod-1f83.teamkatalogen_historikk.teams_i_omrader`
 ),
 
 edok as (
     select
         title as e_navn,
-        avdeling as e_avdeling,
+        avdeling as avdeling,
         etterlevelsedokumentasjonid as e_id,
         concat('E', etterlevelseNummer) as e_nr,
         array_to_string(teams, ', ') as e_team_id_string,
         concat('https://etterlevelse.ansatt.nav.no/dokumentasjon/', etterlevelsedokumentasjonid) as e_url,
-    from {{ source('datajegerne', 'ds_dokument') }}
-    -- from `teamdatajegerne-prod-c8b1.etterlevelse.ds_dokument`
+    -- from {{ source('datajegerne', 'ds_dokument') }}
+    from `teamdatajegerne-prod-c8b1.etterlevelse.ds_dokument`
     where aktivRad = true
 ),
 
@@ -36,8 +36,8 @@ krav_kriterier as (
         etterlevelseDokumentasjonId as e_id,
         suksesskriterieStatus as kriterie_status,
         concat('K', kravNummer, ' - ', suksesskriterieId) as kriterie
-        from {{ source('datajegerne', 'ds_besvarelser_tema')}}
-        -- from `teamdatajegerne-prod-c8b1.etterlevelse.ds_besvarelser_tema`
+        -- from {{ source('datajegerne', 'ds_besvarelser_tema')}}
+        from `teamdatajegerne-prod-c8b1.etterlevelse.ds_besvarelser_tema`
         where
             aktivRad = true
             and tema is not null -- fjerner gamle temaer som ikke er i bruk
@@ -46,7 +46,7 @@ krav_kriterier as (
 sammensmeltet as (
     select
         edok.e_navn,
-        edok.e_avdeling,
+        edok.avdeling,
         edok.e_id,
         edok.e_nr,
         edok.e_team_id_string,
@@ -66,7 +66,7 @@ sammensmeltet as (
 per_team as (
     select
         sammensmeltet.e_navn,
-        sammensmeltet.e_avdeling,
+        sammensmeltet.avdeling,
         sammensmeltet.e_id,
         sammensmeltet.e_nr,
         sammensmeltet.e_team_id_string,
@@ -88,23 +88,23 @@ per_team as (
 
 final as (
     select
-        e_navn,
-        e_avdeling,
-        e_id,
         e_nr,
-        e_team_id_string,
-        e_url,
-        krav_tema,
+        kriterie,
+        kriterie_status,
         krav,
         krav_oppfylt,
         krav_ferdig_utfylt,
-        kriterie_begrunnelse,
-        kriterie_status,
-        kriterie,
+        krav_tema,
+        e_navn,
         team_navn,
         omrade_navn,
-        team_id,
-        omrade_id
+        avdeling,
+        kriterie_begrunnelse,
+        e_url,
+        e_id
+        -- team_id,
+        -- omrade_id
+        -- e_team_id_string,
     from per_team
 )
 

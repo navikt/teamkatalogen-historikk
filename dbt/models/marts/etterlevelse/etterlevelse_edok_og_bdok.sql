@@ -18,7 +18,7 @@ edok as (
         title as e_navn,
         avdeling as e_avdeling,
         etterlevelsedokumentasjonid as e_id,
-        concat('E', etterlevelseNummer) as e_nummer,
+        concat('E', etterlevelseNummer) as e_nr,
         coalesce(array_to_string(teams, ', '), 'E-nr uten team') as e_team_id_string,
         concat('https://etterlevelse.ansatt.nav.no/dokumentasjon/', etterlevelsedokumentasjonid) as e_url,
     from `teamdatajegerne-prod-c8b1.etterlevelse.ds_dokument`
@@ -93,7 +93,7 @@ b_per_team as (
 --         -- edok.e_navn,
 --         edok.e_avdeling,
 --         edok.e_id,
---         edok.e_nummer,
+--         edok.e_nr,
 --         -- edok.e_team_id_string,
 --         -- edok.e_url,
 --         krav_kriterier.krav_tema,
@@ -127,7 +127,7 @@ b_koblet_til_e as (
         kobling_mellom_E_og_B.b_krav_dokumentert,
         kobling_mellom_E_og_B.b_krav_dok_under_arbeid,
         kobling_mellom_E_og_B.b_krav_dok_ikke_paabegynt,
-        edok.e_nummer,
+        edok.e_nr,
         edok.e_navn,
         edok.e_avdeling
     from b_per_team
@@ -138,8 +138,9 @@ b_koblet_til_e as (
 final as (
     select
         b_nr,
-        e_nummer,
+        e_nr,
         b_team_navn,
+        b_omrade_navn,
         e_avdeling,
         b_navn,
         b_status,
@@ -147,7 +148,6 @@ final as (
         b_tema,
         b_behovForPVK,
         b_referansePVK,
-        b_omrade_navn,
         b_krav_relevant,
         b_krav_dokumentert,
         b_krav_dok_under_arbeid,
