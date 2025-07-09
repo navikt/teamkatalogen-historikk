@@ -49,8 +49,19 @@ bdok as (
         status as b_status,
         active as b_aktiv,
         purpose_shortName as b_tema,
-        dpia_needForDpia as b_behovForPVK,
-        dpia_refToDpia as b_referansePVK,
+        -- dpia_needForDpia as b_behovForPVK,
+        case
+            when dpia_needForDpia = true then 'Ja'
+            when dpia_needForDpia = false then 'Nei'
+            else 'Ikke vurdert/satt'
+        end as b_behovForPVK,
+        -- dpia_refToDpia as b_referansePVK,
+        case
+            when dpia_needForDpia = true and dpia_refToDpia is not null then dpia_refToDpia
+            when dpia_needForDpia = true and dpia_refToDpia is null then '(Trenger PVK, mangler referanse)'
+            when dpia_needForDpia = false then '(PVK ikke relevant)'
+            else '(Ukjent behov for PVK)'
+        end as b_referansePVK,
         concat('https://behandlingskatalog.ansatt.nav.no/process/purpose/', purpose_code, '/', id) as b_url_behkat,
         concat('https://etterlevelse.ansatt.nav.no/dokumentasjoner/behandlingsok?behandlingId=', id) as b_url_etterlevelse,
     from `teamdatajegerne-prod-c8b1.Behandlingskatalog_Publisering.Behandling`

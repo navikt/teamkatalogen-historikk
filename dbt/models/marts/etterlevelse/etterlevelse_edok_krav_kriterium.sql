@@ -32,6 +32,11 @@ krav_kriterier as (
         kravNummer as krav,
         kravoppfylt as krav_oppfylt,
         kravFerdigUtfylt as krav_ferdig_utfylt,
+        case
+            when kravoppfylt = true and kravFerdigUtfylt = true then 'Oppfylt og dokumentert'
+            when kravoppfylt = false and kravFerdigUtfylt = true then 'Ikke oppfylt, men ferdig dokumentert'
+            when kravoppfylt = false and kravFerdigUtfylt = false then 'Ikke oppfylt, ikke dokumentert ferdig'
+        end as krav_status,
         begrunnelse as kriterie_begrunnelse,
         etterlevelseDokumentasjonId as e_id,
         suksesskriterieStatus as kriterie_status,
@@ -55,6 +60,7 @@ sammensmeltet as (
         krav_kriterier.krav,
         krav_kriterier.krav_oppfylt,
         krav_kriterier.krav_ferdig_utfylt,
+        krav_kriterier.krav_status,
         krav_kriterier.kriterie_begrunnelse,
         krav_kriterier.kriterie_status,
         krav_kriterier.kriterie
@@ -75,6 +81,7 @@ per_team as (
         sammensmeltet.krav,
         sammensmeltet.krav_oppfylt,
         sammensmeltet.krav_ferdig_utfylt,
+        sammensmeltet.krav_status,
         sammensmeltet.kriterie_begrunnelse,
         sammensmeltet.kriterie_status,
         sammensmeltet.kriterie,
@@ -94,6 +101,7 @@ final as (
         krav,
         krav_oppfylt,
         krav_ferdig_utfylt,
+        krav_status,
         krav_tema,
         e_navn,
         team_navn,
