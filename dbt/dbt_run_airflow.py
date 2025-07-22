@@ -5,26 +5,27 @@ from google.cloud import secretmanager
 from dbt.cli.main import dbtRunner, dbtRunnerResult
 
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, force=True)
+
 
 def run_dbt(dbt_command: str):
     """Kjører dbt snapshot for historisere-teamkatalogen"""
     # henter secret for sørvisbrukeren historisere-teamkatalogen
-    secret_name = 'serviceuser-bq-historisere-teamkatalogen'
+    secret_name = "serviceuser-bq-historisere-teamkatalogen"
     logging.info(f"Setter miljøvariabl-hemmeligheter fra: {secret_name}")
     full_secret_name = f"projects/230094999443/secrets/{secret_name}/versions/latest"
     client = secretmanager.SecretManagerServiceClient()
     response = client.access_secret_version(request={"name": full_secret_name})
     secret = json.loads(response.payload.data.decode("UTF-8"))
     for key, value in secret.items():
-        key = 'DBT_ENV_SECRET_' + key
+        key = "DBT_ENV_SECRET_" + key
         os.environ[key] = value
         logging.info(f"Set environment variable {key}")
-    os.environ["DBT_AUTHENTICATION"] = "service_account" # se profiles.yml
+    os.environ["DBT_AUTHENTICATION"] = "service_account"  # se profiles.yml
 
     # kjører dbt snapshot
     dbt_base_command = ["--log-format-file", "json"]
-    
+
     dbt = dbtRunner()
     output: dbtRunnerResult = dbt.invoke(dbt_base_command + dbt_command)
 
