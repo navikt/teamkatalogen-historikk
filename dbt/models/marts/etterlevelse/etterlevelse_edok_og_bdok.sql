@@ -46,6 +46,7 @@ bdok as (
         coalesce(array_to_string(affiliation_productTeams, ', '), 'B-nr uten team') as b_team_id_string,
         concat('B', number) as b_nr,
         name as b_navn,
+        affiliation_nomDepartmentName as b_avdeling,
         status as b_status,
         active as b_aktiv,
         purpose_shortName as b_tema,
@@ -63,7 +64,7 @@ bdok as (
             else '(Ukjent behov for PVK)'
         end as b_referansePVK,
         concat('https://behandlingskatalog.ansatt.nav.no/process/purpose/', purpose_code, '/', id) as b_url_behkat,
-        concat('https://etterlevelse.ansatt.nav.no/dokumentasjoner/behandlingsok?behandlingId=', id) as b_url_etterlevelse,
+        concat('https://etterlevelse.ansatt.nav.no/dokumentasjoner?tab=behandlingsok&behandlingId=', id) as b_url_etterlevelse,
     from `teamdatajegerne-prod-c8b1.Behandlingskatalog_Publisering.Behandling`
     where active = true
 ),
@@ -83,6 +84,7 @@ b_per_team as (
     select
         bdok.b_id,
         bdok.b_navn,
+        bdok.b_avdeling,
         bdok.b_nr,
         bdok.b_status,
         bdok.b_aktiv,
@@ -122,6 +124,7 @@ b_koblet_til_e as (
     select
         b_per_team.b_id,
         b_per_team.b_navn,
+        b_per_team.b_avdeling,
         b_per_team.b_nr,
         b_per_team.b_status,
         b_per_team.b_aktiv,
@@ -154,6 +157,7 @@ final as (
         b_omrade_navn,
         e_avdeling,
         b_navn,
+        b_avdeling,
         b_status,
         b_aktiv,
         b_tema,
