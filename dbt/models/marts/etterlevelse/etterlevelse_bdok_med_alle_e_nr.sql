@@ -22,8 +22,8 @@ bdok as (
         name as b_navn,
         status as b_status,
         purpose_shortName as b_tema,
-        coalesce(teams_i_omrader.team_navn, 'B-nr uten team') as b_team_navn,
-        coalesce(teams_i_omrader.team_omrade_navn, 'B-nr uten team-område') as b_team_omrade_navn,
+        teams_i_omrader.team_navn as b_team_navn,
+        teams_i_omrader.team_omrade_navn as b_team_omrade_navn,
         string_agg(json_extract_scalar(products, '$.shortName'), ', ') over (partition by id) as relaterte_systemer,
         case
             when dpia_needForDpia = true then 'Ja'
@@ -57,8 +57,8 @@ kobling_mellom_E_og_B as (
 edok as (
     select
         concat('E', etterlevelseNummer) as e_nr,
-        coalesce(teams_i_omrader.team_navn, 'E-nr uten team') as e_team_navn,
-        coalesce(teams_i_omrader.team_omrade_navn, 'E-nr uten team-område') as e_team_omrade_navn,
+        teams_i_omrader.team_navn as e_team_navn,
+        teams_i_omrader.team_omrade_navn as e_team_omrade_navn,
         etterlevelsedokumentasjonid as e_id,
         kobling_mellom_E_og_B.behandlingId as b_id,
     from `teamdatajegerne-prod-c8b1.etterlevelse.ds_dokument`
