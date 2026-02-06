@@ -13,7 +13,7 @@ install: bootstrap
     @uv sync --dev
 
 # Oppgrader dependencies og setter opp miljøet på nytt
-update-deps: bootstrap
+update: bootstrap
     @printf "Oppgraderer dependencies\n"
     @uv sync --upgrade --dev
 
@@ -32,7 +32,7 @@ format:
     @uv run sqlfluff fix --check
 
 # Generer requirements.txt
-requirements: update-deps
+requirements: update
     @printf "Genererer requirements.txt\n"
     @uv sync --no-dev
     @uv pip freeze > requirements.txt
